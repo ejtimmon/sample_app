@@ -460,7 +460,7 @@ void Test_SAMPLE_NoopCmd_LengthFailure(void)
                           sizeof(SAMPLE_Noop_t) + 2);
     UT_CheckEvent_Setup(&EventTest, SAMPLE_COMMANDNOP_INF_EID);
     
-    SAMPLE_ProcessGroundCommand(&TestMsg);
+    SAMPLE_ProcessGroundCommand((CFE_SB_MsgPtr_t)&TestMsg);
 
     /*
      * Confirm that the event was not generated
@@ -518,7 +518,7 @@ void Test_SAMPLE_ResetCounters_LengthFailure(void)
     UT_SetDeferredRetcode(UT_KEY(CFE_SB_GetTotalMsgLength), 1,
                           sizeof(SAMPLE_ResetCounters_t) + 2);
 
-    SAMPLE_ProcessGroundCommand(&TestMsg);
+    SAMPLE_ProcessGroundCommand((CFE_SB_MsgPtr_t)&TestMsg);
 
     UtAssert_True(EventTest.MatchCount == 0,
             "SAMPLE_COMMANDRST_INF_EID not generated (%u)",
@@ -600,7 +600,7 @@ void Test_SAMPLE_ProcessCC_LengthFailure(void)
     UT_CheckEvent_Setup(&EventTest, SAMPLE_APP_TBL_INF_EID);
 
     
-    SAMPLE_ProcessGroundCommand(&TestMsg);
+    SAMPLE_ProcessGroundCommand((CFE_SB_MsgPtr_t)&TestMsg);
 
     /*
      * Confirm that the Info event was not sent.
